@@ -14,6 +14,11 @@ from render_functions import clear_all, render_all
 
 from components.item import Item
 from components.item_functions import heal
+from components.ai import BasicMonster
+from components.equipment import EquipmentSlots
+from components.equippable import Equippable
+from components.fighter import Fighter
+from components.stairs import Stairs
 
 from render_functions import RenderOrder
 
@@ -126,6 +131,11 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 
             if game_state == GameStates.SHOW_INVENTORY:
                 player_turn_results.extend(player.inventory.use(item, entities=entities, fov_map=fov_map))
+                if item.material == 'glass' :
+                    equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=2)
+                    item = Entity(player.x, player.y, '/', libtcod.sky, 'Handfull of glass shards', equippable=equippable_component)
+                    entities.append(item)
+                    message_log.add_message(Message('The bottle shatters into a hundred pieces as you drop it.', libtcod.blue))
             elif game_state == GameStates.DROP_INVENTORY:
                 player_turn_results.extend(player.inventory.drop_item(item))
 
@@ -210,11 +220,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                 game_state = GameStates.ENEMY_TURN
 
             if item_consumed:
-                if item_consumed.material == 'glass' :
-                    equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=2)
-                    item = Entity(player.x, player.y, '/', libtcod.sky, 'Handfull of glass shards', equippable=equippable_component)
-                    entities.append(item)
-                    message_log.add_message(Message('The bottle shatters into a hundred pieces as you drop it.', libtcod.blue))
+                
                 game_state = GameStates.ENEMY_TURN
 
             if item_dropped:

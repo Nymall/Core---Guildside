@@ -5,13 +5,15 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{cc4032cd-cbe2-46dc-bcef-5f627b5de40a}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>death_functions.py</StartupFile>
+    <StartupFile>guildside.py</StartupFile>
     <SearchPath>components\items\;components\;loader_functions\;map_objects\</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId>Global|PythonCore|3.7</InterpreterId>
+    <TestFramework>Pytest</TestFramework>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -54,13 +56,14 @@
     <Compile Include="map_objects\fov_functions.py" />
     <Compile Include="map_objects\game_map.py" />
     <Compile Include="map_objects\rectangle.py" />
+    <Compile Include="map_objects\summon_monster.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="map_objects\tile.py" />
     <Compile Include="map_objects\__init__.py" />
     <Compile Include="menus.py" />
     <Compile Include="random_utils.py" />
     <Compile Include="render_functions.py" />
-    <Compile Include="samples_py.py" />
-    <Compile Include="setup.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="components" />

@@ -91,9 +91,21 @@ def get_game_variables(constants):
     entities = [player]
 
     equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=2)
-    dagger = Entity(0, 0, '-', libtcod.sky, 'Rusty Dagger', equippable=equippable_component)
-    player.inventory.add_item(dagger)
-    player.equipment.toggle_equip(dagger)
+    item = Entity(0, 0, '-', libtcod.sky, 'Rusty Dagger', equippable=equippable_component)
+    player.inventory.add_item(item)
+    player.equipment.toggle_equip(item)
+    item = Entity(0, 0, '#', libtcod.amber, 'Unflattering Bludrobe', equippable=Equippable(EquipmentSlots.CHEST, defense_bonus=2))
+    player.inventory.add_item(item)
+    player.equipment.toggle_equip(item)
+    item = Entity(0, 0, '#', libtcod.amber, 'Poofy Bludcowl', equippable=Equippable(EquipmentSlots.HELM, max_hp_bonus=25))
+    player.inventory.add_item(item)
+    player.equipment.toggle_equip(item)
+    item = Entity(0, 0, '#', libtcod.amber, 'Iron Blud Ring', equippable=Equippable(EquipmentSlots.RING_L, max_blood_bonus=25))
+    player.inventory.add_item(item)
+    player.equipment.toggle_equip(item)
+    item = Entity(0, 0, '#', libtcod.amber, 'Iron Nublud Ring', equippable=Equippable(EquipmentSlots.RING_R, max_blood_bonus=25))
+    player.inventory.add_item(item)
+    player.equipment.toggle_equip(item)
 
     game_map = GameMap(constants['map_width'], constants['map_height'])
     game_map.make_map(constants['max_rooms'], constants['room_min_size'], constants['room_max_size'],
