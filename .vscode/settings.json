@@ -1,0 +1,6 @@
+{
+  "python.autoComplete.extraPaths": [ "./components/items" ],
+  [ "./components" ],
+  [ "./loader_functions" ],
+  [ "./map_objects" ]
+}
