@@ -22,6 +22,9 @@ from render_functions import RenderOrder
 from enum import *
 
 class gen_monsters:
+    def __init__():
+        print()
+
     def monster_all(Enum):
         KOBOLD = auto()
         RAZORTOOTH = auto()

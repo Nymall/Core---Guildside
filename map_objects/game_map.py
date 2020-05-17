@@ -1,6 +1,8 @@
 import libtcodpy as libtcod
 from random import randint
 
+from map_objects.summon_monster import gen_monster
+
 from components.ai import BasicMonster
 from components.equipment import EquipmentSlots
 from components.equippable import Equippable
@@ -156,22 +158,7 @@ class GameMap:
 
             # Check if an entity is already in that location
             if not any([entity for entity in entities if entity.x == x and entity.y == y]):
-                monster_choice = random_choice_from_dict(monster_chances)
-
-                if monster_choice == 'orc':
-                    fighter_component = Fighter(hp=20, defense=0, power=4, xp=35)
-                    ai_component = BasicMonster()
-
-                    monster = Entity(x, y, 'o', libtcod.desaturated_green, 'Orc', blocks=True,
-                                     render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
-                else:
-                    fighter_component = Fighter(hp=30, defense=2, power=8, xp=100)
-                    ai_component = BasicMonster()
-
-                    monster = Entity(x, y, 'T', libtcod.darker_green, 'Troll', blocks=True, fighter=fighter_component,
-                                     render_order=RenderOrder.ACTOR, ai=ai_component)
-
-                entities.append(monster)
+                entities.append(gen_monsters().monster_stats(x, y))
 
         for i in range(number_of_items):
             x = randint(room.x1 + 1, room.x2 - 1)

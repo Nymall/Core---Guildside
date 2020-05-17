@@ -24,6 +24,7 @@
     <Content Include="arial10x10.png" />
     <Content Include="menu_background.png" />
     <Content Include="menu_background1.png" />
+    <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="components\ai.py" />

@@ -76,7 +76,7 @@ def cast_lightning(*args, **kwargs):
 
     return results
 
-def cast_lightning(*args, **kwargs):
+def cast_lightning_chance(*args, **kwargs):
     caster = args[0]
     entities = kwargs.get('entities')
     fov_map = kwargs.get('fov_map')
