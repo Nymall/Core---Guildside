@@ -48,7 +48,7 @@ class GameMap:
     def make_map(self, max_rooms, room_min_size, room_max_size, map_width, map_height, player, entities):
         rooms = []
         num_rooms = 0
-
+        self.entities = entities
         center_of_last_room_x = None
         center_of_last_room_y = None
 
@@ -160,19 +160,19 @@ class GameMap:
             y = randint(room.y1 + 1, room.y2 - 1)
 
             # Check if an entity is already in that location
-            if not any([entity for entity in entities.entity if entity.x == x and entity.y == y]):
-                entities.add_new_entity(gen_monsters().monster_stats(x, y))
+            if not any([entity for entity in entities if entity.x == x and entity.y == y]):
+                self.entities.add_new_entity(gen_monsters.monster_stats(self, x, y))
 
         for i in range(number_of_items):
             x = randint(room.x1 + 1, room.x2 - 1)
             y = randint(room.y1 + 1, room.y2 - 1)
 
-            if not any([entity for entity in entities.entity if entity.x == x and entity.y == y]):
+            if not any([entity for entity in entities if entity.x == x and entity.y == y]):
                 item_choice = random_choice_from_dict(item_chances)
 
                 if item_choice == 'potion':
-                    stablex = item.x
-                    stabley = item.y
+                    stablex = x
+                    stabley = y
                     while randint(1, 7) != 1:
                         item = self.potions.return_potions(x, y)
                         item.x = stablex
@@ -183,8 +183,8 @@ class GameMap:
                 elif item_choice == 'pool_of_blud':
                     item_component = Item(use_function=heal, amount=0)
                     item = Entity(x, y, '$', libtcod.red, 'pool of blud', render_order=RenderOrder.ITEM, item=item_component)
-                    stablex = item.x
-                    stabley = item.y
+                    stablex = x
+                    stabley = y
                     while randint(1, 5) != 1:
                         item.x = stablex
                         item.y = stabley
@@ -201,7 +201,7 @@ class GameMap:
                 else:
                     item = self.scrolls.return_scrolls(x, y);
 
-                entities.add_new_entity(item)
+                self.entities.add_new_entity(item)
 
     def is_blocked(self, x, y):
         if self.tiles[x][y].blocked:

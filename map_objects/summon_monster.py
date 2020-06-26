@@ -38,9 +38,9 @@ class gen_monsters:
         ORC = auto()
         TROLL = auto()
 
-        def ret_mon():
-            mon = random.choice(list(monster_all))
-            return mon
+    def ret_mon(ret):
+        mon = random.choice(list(ret))
+        return mon
 
     def monster_goblin(Enum):
         GOBLIN = auto()
@@ -48,10 +48,6 @@ class gen_monsters:
         CB_GOBLIN = auto()
         CO_GOBLIN = auto()
         CS_GOBLIN = auto()
-    
-        def ret_mon():
-            mon = random.choice(list(monster_goblin))
-            return mon
 
     def monster_kobold(Enum):
         KOBOLD = auto()
@@ -59,20 +55,14 @@ class gen_monsters:
         KHUNTER = auto()
         KGLASSMITH = auto()
     
-        def ret_mon():
-            mon = random.choice(list(monster_kobold))
-            return mon
 
     def monster_orc(Enum):
         ORC = auto()
         TROLL = auto()
 
-        def ret_mon():
-            mon = random.choice(list(monster_orc))
-            return mon
 
-    def monster_stats(x, y, sect=monster_all):
-        selector = sect.ret_mon()
+    def monster_stats(self, x, y, sect=monster_all):
+        selector = ret_mon(sect)
 
         if selector == monster_all.KOBOLD:
             monster = Entity(x, y, 'k', libtcod.desaturated_green, 'Kobold', blocks=True, render_order=RenderOrder.ACTOR, fighter=Fighter(hp=10, defense=0, power=1, xp=35), ai=BasicMonster(), inventory=Inventory(5))
