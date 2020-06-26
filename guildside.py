@@ -1,6 +1,6 @@
 import libtcodpy as libtcod
 from random import randint
-import deity
+from deity import deity
 
 from death_functions import kill_monster, kill_player
 from entity import Entity, get_blocking_entities_at_location
@@ -306,7 +306,7 @@ def main():
     panel = libtcod.console_new(constants['screen_width'], constants['panel_height'])
 
     player = None
-    entities = diety()
+    entities = deity()
     game_map = None
     message_log = None
     game_state = None

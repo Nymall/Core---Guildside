@@ -44,7 +44,7 @@ class BasicShaman:
 
             if randint(1, 100) < 5:
                 message_log.add_message(Message('The shaman barks something, and a goblin materializes beside you!', libtcod.light_violet))
-                monster = Entity((randint(1,3) + target.x), (randint(1,3) + target.y), 'g', libtcod.green, 'Clanfear Goblin', blocks=True, render_order=RenderOrder.ACTOR, fighter=Fighter(hp=15, defense=1, power=2, xp=45), ai=BasicMonster(), inventory=Inventory(5))
+                monster = Entity((randint(-3,3) + target.x), (randint(-3,3) + target.y), 'g', libtcod.green, 'Clanfear Goblin', blocks=True, render_order=RenderOrder.ACTOR, fighter=Fighter(hp=15, defense=1, power=2, xp=45), ai=BasicMonster(), inventory=Inventory(5))
                 entities.add_new_entity(monster)
             
             elif monster.distance_to(target) >= 2:

@@ -1,11 +1,11 @@
 from random import randint
 
-class deity(object):
-    """description of class"""
+class deity:
+    """This is the thing your programming teacher told you never to do.... a god class."""
 
     def __init__ (self):
         self.entity = []
-        self.max_depth = rantint(4, 10)
+        self.max_depth = randint(4, 10)
 
     def add_new_entity(self, entity):
         self.entity.append(entity)

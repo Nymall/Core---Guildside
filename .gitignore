@@ -1,2 +1,5 @@
 .idea/*
 *.pyc
+/env/Lib/site-packages
+/env
+.vs
