@@ -97,7 +97,7 @@ def get_game_variables(constants):
     item = Entity(0, 0, '#', libtcod.amber, 'Unflattering Bludrobe', equippable=Equippable(EquipmentSlots.CHEST, defense_bonus=2))
     player.inventory.add_item(item)
     player.equipment.toggle_equip(item)
-    item = Entity(0, 0, '#', libtcod.amber, 'Poofy Bludcowl', equippable=Equippable(EquipmentSlots.HELM, max_hp_bonus=25))
+    item = Entity(0, 0, '#', libtcod.amber, 'Poofy Bludcowl', equippable=Equippable(EquipmentSlots.HELMET, max_hp_bonus=25))
     player.inventory.add_item(item)
     player.equipment.toggle_equip(item)
     item = Entity(0, 0, '#', libtcod.amber, 'Iron Blud Ring', equippable=Equippable(EquipmentSlots.RING_L, max_blood_bonus=25))
