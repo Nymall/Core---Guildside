@@ -11,6 +11,7 @@ from components.stairs import Stairs
 from components.items.weapons import weapons
 from components.items.scrolls import scrolls
 from components.items.potion import potions
+from components.items.rings import rings
 
 from entity import Entity
 
@@ -35,6 +36,7 @@ class GameMap:
         self.weapons = weapons(0, 0, self.dungeon_level)        
         self.scrolls = scrolls(0, 0, self.dungeon_level)
         self.potions = potions(0, 0, self.dungeon_level)
+        self.rings = rings(0, 0, self.dungeon_level)
 
     def initialize_tiles(self):
         tiles = [[Tile(True) for y in range(self.height)] for x in range(self.width)]
@@ -143,6 +145,7 @@ class GameMap:
             'pool_of_blud': 15,
             'potion': 30,
             'sword': 30,
+            'rings': 30,
             'shield': from_dungeon_level([[15, 8]], self.dungeon_level),
             'lightning_scroll': from_dungeon_level([[25, 4]], self.dungeon_level),
             'fireball_scroll': from_dungeon_level([[25, 6]], self.dungeon_level),
@@ -206,6 +209,8 @@ class GameMap:
                 elif item_choice == 'shield':
                     equippable_component = Equippable(EquipmentSlots.OFF_HAND, defense_bonus=1)
                     item = Entity(x, y, '[', libtcod.darker_orange, 'Shield', equippable=equippable_component)
+                elif item_choice == 'rings':
+                    item = self.rings.return_rings(x, y)
                 else:
                     item = self.scrolls.return_scrolls(x, y);
 

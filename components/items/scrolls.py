@@ -33,7 +33,7 @@ class scrolls:
             'd': from_dungeon_level([[4, 4]], self.dungeon_level),
             'e': from_dungeon_level([[5, 4]], self.dungeon_level),
             'f': from_dungeon_level([[6, 4]], self.dungeon_level),
-            'g': from_dungeon_level([[6, 4]], self.dungeon_level),
+            'g': from_dungeon_level([[7, 4]], self.dungeon_level),
             'h': 10,
             'i': from_dungeon_level([[2, 4]], self.dungeon_level),
             'j': from_dungeon_level([[3, 4]], self.dungeon_level),
