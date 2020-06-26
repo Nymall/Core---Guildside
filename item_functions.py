@@ -1,5 +1,7 @@
 import libtcodpy as libtcod
 
+import math
+
 from components.ai import ConfusedMonster
 
 from game_messages import Message

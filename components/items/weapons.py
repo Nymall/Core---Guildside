@@ -32,7 +32,11 @@ class weapons:
             'c': from_dungeon_level([[3, 4]], self.dungeon_level),
             'd': from_dungeon_level([[5, 4]], self.dungeon_level),
             'e': from_dungeon_level([[6, 4]], self.dungeon_level),
-            'f': from_dungeon_level([[4, 4]], self.dungeon_level)
+            'f': from_dungeon_level([[4, 4]], self.dungeon_level),
+            'g': from_dungeon_level([[7, 4]], self.dungeon_level),
+            'h': from_dungeon_level([[8, 4]], self.dungeon_level),
+            'i': from_dungeon_level([[9, 4]], self.dungeon_level),
+            'j': from_dungeon_level([[10, 4]], self.dungeon_level)
             }
 
         item_choice = random_choice_from_dict(item_chances)
@@ -55,5 +59,17 @@ class weapons:
         elif item_choice == 'f':
             equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=4)
             item = Entity(x, y, '/', libtcod.sky, 'Broken Dagger', equippable=equippable_component)
+        elif item_choice == 'g':
+            equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=9)
+            item = Entity(x, y, '/', libtcod.sky, 'Bent Dagger', equippable=equippable_component)
+        elif item_choice == 'h':
+            equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=10)
+            item = Entity(x, y, '/', libtcod.sky, 'Bent Sword', equippable=equippable_component)
+        elif item_choice == 'i':
+            equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=11)
+            item = Entity(x, y, '/', libtcod.sky, 'Unwieldy Dagger', equippable=equippable_component)
+        elif item_choice == 'j':
+            equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=12)
+            item = Entity(x, y, '/', libtcod.sky, 'Unwieldy Sword', equippable=equippable_component)
 
         return item

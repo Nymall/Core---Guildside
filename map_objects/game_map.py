@@ -38,6 +38,7 @@ class GameMap:
         self.weapons = weapons(0, 0, self.dungeon_level)        
         self.scrolls = scrolls(0, 0, self.dungeon_level)
         self.potions = potions(0, 0, self.dungeon_level)
+        self.rings = rings(0, 0, self.dungeon_level)
 
     def initialize_tiles(self):
         tiles = [[Tile(True) for y in range(self.height)] for x in range(self.width)]
