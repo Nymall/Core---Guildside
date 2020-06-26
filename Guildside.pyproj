@@ -43,6 +43,9 @@
     <Compile Include="components\stairs.py" />
     <Compile Include="components\__init__.py" />
     <Compile Include="death_functions.py" />
+    <Compile Include="deity.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="entity.py" />
     <Compile Include="equipment_slots.py" />
     <Compile Include="fov_functions.py" />
@@ -54,6 +57,9 @@
     <Compile Include="loader_functions\data_loaders.py" />
     <Compile Include="loader_functions\initialize_new_game.py" />
     <Compile Include="loader_functions\__init__.py" />
+    <Compile Include="map_objects\autopsy.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="map_objects\fov_functions.py" />
     <Compile Include="map_objects\game_map.py" />
     <Compile Include="map_objects\rectangle.py" />

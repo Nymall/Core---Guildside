@@ -9,6 +9,8 @@ from components.item import Item
 from components.stairs import Stairs
 from components.inventory import Inventory
 
+import deity
+
 from render_functions import RenderOrder
 
 from entity import Entity
@@ -43,7 +45,7 @@ class BasicShaman:
             if randint(1, 100) < 5:
                 message_log.add_message(Message('The shaman barks something, and a goblin materializes beside you!', libtcod.light_violet))
                 monster = Entity((randint(1,3) + target.x), (randint(1,3) + target.y), 'g', libtcod.green, 'Clanfear Goblin', blocks=True, render_order=RenderOrder.ACTOR, fighter=Fighter(hp=15, defense=1, power=2, xp=45), ai=BasicMonster(), inventory=Inventory(5))
-                entities.append(monster)
+                entities.add_new_entity(monster)
             
             elif monster.distance_to(target) >= 2:
                 monster.move_astar(target, entities, game_map)

@@ -1,5 +1,6 @@
 import libtcodpy as libtcod
 from random import randint
+import deity
 
 from death_functions import kill_monster, kill_player
 from entity import Entity, get_blocking_entities_at_location
@@ -95,10 +96,10 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
             game_state = GameStates.ENEMY_TURN
 
         elif pickup and game_state == GameStates.PLAYERS_TURN:
-            for entity in entities:
+            for entity in entities.entity:
                 if entity.item and entity.x == player.x and entity.y == player.y:
                     if entity.name == 'pool of blud':
-                        entities.remove(entity)
+                        entities.remove_entity(entity)
                         message_log.add_message(Message('You absorb the powerblud through your hands...', libtcod.red))
                         player.fighter.blood += randint(2, 10)
                         if player.fighter.max_blood < player.fighter.blood:
@@ -134,15 +135,15 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                 if item.material == 'glass' :
                     equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=2)
                     item = Entity(player.x, player.y, '/', libtcod.sky, 'Handfull of glass shards', equippable=equippable_component)
-                    entities.append(item)
+                    entities.add_new_entity(item)
                     message_log.add_message(Message('The bottle shatters into a hundred pieces as you drop it.', libtcod.blue))
             elif game_state == GameStates.DROP_INVENTORY:
                 player_turn_results.extend(player.inventory.drop_item(item))
 
         if take_stairs and game_state == GameStates.PLAYERS_TURN:
-            for entity in entities:
+            for entity in entities.entity:
                 if entity.stairs and entity.x == player.x and entity.y == player.y:
-                    entities = game_map.next_floor(player, message_log, constants)
+                    game_map.next_floor(player, message_log, constants, entities)
                     fov_map = initialize_fov(game_map)
                     fov_recompute = True
                     libtcod.console_clear(con)
@@ -211,12 +212,12 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                     item_component = Item(use_function=heal, amount=0)
                     item = Entity(dead_entity.x, dead_entity.y, '$', libtcod.red, 'pool of blud', render_order=RenderOrder.ITEM,
                                   item=item_component)
-                    entities.append(item)
+                    entities.add_new_entity(item)
 
                 message_log.add_message(message)
 
             if item_added:
-                entities.remove(item_added)
+                entities.remove_entity(item_added)
                 game_state = GameStates.ENEMY_TURN
 
             if item_consumed:
@@ -224,7 +225,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                 game_state = GameStates.ENEMY_TURN
 
             if item_dropped:
-                entities.append(item_dropped)
+                entities.add_new_entity(item_dropped)
 
                 game_state = GameStates.ENEMY_TURN
 
@@ -266,7 +267,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                     game_state = GameStates.LEVEL_UP
 
         if game_state == GameStates.ENEMY_TURN:
-            for entity in entities:
+            for entity in entities.entity:
                 if entity.ai:
                     enemy_turn_results = entity.ai.take_turn(player, fov_map, game_map, entities)
 
@@ -305,7 +306,7 @@ def main():
     panel = libtcod.console_new(constants['screen_width'], constants['panel_height'])
 
     player = None
-    entities = []
+    entities = diety()
     game_map = None
     message_log = None
     game_state = None
@@ -339,13 +340,13 @@ def main():
             if show_load_error_message and (new_game or load_saved_game or exit_game):
                 show_load_error_message = False
             elif new_game:
-                player, entities, game_map, message_log, game_state = get_game_variables(constants)
+                player, game_map, message_log, game_state = get_game_variables(constants, entities)
                 game_state = GameStates.PLAYERS_TURN
 
                 show_main_menu = False
             elif load_saved_game:
                 try:
-                    player, entities, game_map, message_log, game_state = load_game()
+                    player, game_map, message_log, game_state = load_game(entities)
                     show_main_menu = False
                 except FileNotFoundError:
                     show_load_error_message = True

@@ -1,5 +1,7 @@
 import libtcodpy as libtcod
 
+import deity
+
 from components.equipment import Equipment
 from components.equippable import Equippable
 from components.fighter import Fighter
@@ -80,7 +82,7 @@ def get_constants():
     return constants
 
 
-def get_game_variables(constants):
+def get_game_variables(constants, entities):
     fighter_component = Fighter(hp=100, defense=1, power=2)
     inventory_component = Inventory(26)
     level_component = Level()
@@ -88,7 +90,7 @@ def get_game_variables(constants):
     player = Entity(0, 0, '@', libtcod.white, 'Player', blocks=True, render_order=RenderOrder.ACTOR,
                     fighter=fighter_component, inventory=inventory_component, level=level_component,
                     equipment=equipment_component)
-    entities = [player]
+    entities.add_new_entity(player)
 
     equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=2)
     item = Entity(0, 0, '-', libtcod.sky, 'Rusty Dagger', equippable=equippable_component)
@@ -115,4 +117,4 @@ def get_game_variables(constants):
 
     game_state = GameStates.PLAYERS_TURN
 
-    return player, entities, game_map, message_log, game_state
+    return player, game_map, message_log, game_state

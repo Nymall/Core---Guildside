@@ -98,7 +98,7 @@ class GameMap:
                         self.create_v_tunnel(prev_y, new_y, prev_x)
                         self.create_h_tunnel(prev_x, new_x, new_y)
 
-                self.place_entities(new_room, entities)
+                self.place_entities(new_room, entities.entity)
 
                 # finally, append the new room to the list
                 rooms.append(new_room)
@@ -107,7 +107,7 @@ class GameMap:
         stairs_component = Stairs(self.dungeon_level + 1)
         down_stairs = Entity(center_of_last_room_x, center_of_last_room_y, '>', libtcod.white, 'Stairs',
                              render_order=RenderOrder.STAIRS, stairs=stairs_component)
-        entities.append(down_stairs)
+        entities.add_new_entity(down_stairs)
 
     def create_room(self, room):
         # go through the tiles in the rectangle and make them passable
@@ -157,26 +157,26 @@ class GameMap:
             y = randint(room.y1 + 1, room.y2 - 1)
 
             # Check if an entity is already in that location
-            if not any([entity for entity in entities if entity.x == x and entity.y == y]):
-                entities.append(gen_monsters().monster_stats(x, y))
+            if not any([entity for entity in entities.entity if entity.x == x and entity.y == y]):
+                entities.add_new_entity(gen_monsters().monster_stats(x, y))
 
         for i in range(number_of_items):
             x = randint(room.x1 + 1, room.x2 - 1)
             y = randint(room.y1 + 1, room.y2 - 1)
 
-            if not any([entity for entity in entities if entity.x == x and entity.y == y]):
+            if not any([entity for entity in entities.entity if entity.x == x and entity.y == y]):
                 item_choice = random_choice_from_dict(item_chances)
 
                 if item_choice == 'potion':
-                    item = self.potions.return_potions(x, y);
                     stablex = item.x
                     stabley = item.y
                     while randint(1, 7) != 1:
+                        item = self.potions.return_potions(x, y)
                         item.x = stablex
                         item.y = stabley
                         item.x += randint(-1, 1)
                         item.y += randint(-1, 1)
-                        entities.append(item)
+                        entities.add_new_entity(item)
                 elif item_choice == 'pool_of_blud':
                     item_component = Item(use_function=heal, amount=0)
                     item = Entity(x, y, '$', libtcod.red, 'pool of blud', render_order=RenderOrder.ITEM, item=item_component)
@@ -187,7 +187,7 @@ class GameMap:
                         item.y = stabley
                         item.x += randint(-1, 1)
                         item.y += randint(-1, 1)
-                        entities.append(item)
+                        entities.add_new_entity(item)
                 elif item_choice == 'sword':
                     item = self.weapons.return_weapons(x, y);
                 elif item_choice == 'shield':
@@ -196,7 +196,7 @@ class GameMap:
                 else:
                     item = self.scrolls.return_scrolls(x, y);
 
-                entities.append(item)
+                entities.add_new_entity(item)
 
     def is_blocked(self, x, y):
         if self.tiles[x][y].blocked:
@@ -204,9 +204,8 @@ class GameMap:
 
         return False
 
-    def next_floor(self, player, message_log, constants):
+    def next_floor(self, player, message_log, constants, entities):
         self.dungeon_level += 1
-        entities = [player]
 
         self.tiles = self.initialize_tiles()
         self.make_map(constants['max_rooms'], constants['room_min_size'], constants['room_max_size'],
@@ -216,4 +215,32 @@ class GameMap:
 
         message_log.add_message(Message('You take a moment to rest, and recover your strength.', libtcod.light_violet))
 
-        return entities
+    def make_home(self, max_rooms, room_min_size, room_max_size, map_width, map_height, player, entities):
+
+       # random width and height
+       w = map_width - 4
+       h = map_height - 4
+       # random position without going out of the boundaries of the map
+       x = 2
+       y = 2
+
+       # "Rect" class makes rectangles easier to work with
+       new_room = Rect(x, y, w, h)
+
+       self.create_room(new_room)
+
+       # center coordinates of new room, will be useful later
+       (new_x, new_y) = new_room.center()
+
+       center_of_last_room_x = new_x
+       center_of_last_room_y = new_y
+
+       player.x = new_x
+       player.y = new_y
+
+       self.place_entities(new_room, entities.entity)
+
+       stairs_component = Stairs(self.dungeon_level + 1)
+       down_stairs = Entity(center_of_last_room_x, (map_height - 4), '>', libtcod.white, 'Stairs',
+                             render_order=RenderOrder.STAIRS, stairs=stairs_component)
+       entities.add_new_entity(down_stairs)
