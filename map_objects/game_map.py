@@ -179,7 +179,7 @@ class GameMap:
                         item.y = stabley
                         item.x += randint(-1, 1)
                         item.y += randint(-1, 1)
-                        entities.add_new_entity(item)
+                        self.entities.add_new_entity(item)
                 elif item_choice == 'pool_of_blud':
                     item_component = Item(use_function=heal, amount=0)
                     item = Entity(x, y, '$', libtcod.red, 'pool of blud', render_order=RenderOrder.ITEM, item=item_component)
@@ -190,7 +190,7 @@ class GameMap:
                         item.y = stabley
                         item.x += randint(-1, 1)
                         item.y += randint(-1, 1)
-                        entities.add_new_entity(item)
+                        self.entities.add_new_entity(item)
                 elif item_choice == 'sword':
                     item = self.weapons.return_weapons(x, y);
                 elif item_choice == 'shield':

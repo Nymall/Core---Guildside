@@ -22,6 +22,9 @@ from render_functions import RenderOrder
 from enum import *
 
 class monster_all:
+    def __init__(self):
+        print()
+
     def monster_a(Enum):
         KOBOLD = auto()
         RAZORTOOTH = auto()
@@ -36,7 +39,7 @@ class monster_all:
         TROLL = auto()
 
     def ret_mon():
-        return random.choice(list(monster_a))
+        return random.choice(list(self.monster_a))
 
 class monster_goblin:
     def monster_g(Enum):
@@ -73,6 +76,8 @@ class gen_monsters:
 
     def monster_stats(self, x, y, sect=monster_all):
         selector = sect.ret_mon()
+
+        # This should be moved to a class that indexes all "entities" and copies out the needed entity
 
         if selector == monster_all.KOBOLD:
             monster = Entity(x, y, 'k', libtcod.desaturated_green, 'Kobold', blocks=True, render_order=RenderOrder.ACTOR, fighter=Fighter(hp=10, defense=0, power=1, xp=35), ai=BasicMonster(), inventory=Inventory(5))
