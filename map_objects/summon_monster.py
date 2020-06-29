@@ -21,48 +21,58 @@ from render_functions import RenderOrder
 
 from enum import *
 
+class monster_all:
+    def monster_a(Enum):
+        KOBOLD = auto()
+        RAZORTOOTH = auto()
+        KHUNTER = auto()
+        KGLASSMITH = auto()
+        GOBLIN = auto()
+        C_GOBLIN = auto()
+        CB_GOBLIN = auto()
+        CO_GOBLIN = auto()
+        CS_GOBLIN = auto()
+        ORC = auto()
+        TROLL = auto()
+
+    def ret_mon():
+        return random.choice(list(monster_a))
+
+class monster_goblin:
+    def monster_g(Enum):
+        GOBLIN = auto()
+        C_GOBLIN = auto()
+        CB_GOBLIN = auto()
+        CO_GOBLIN = auto()
+        CS_GOBLIN = auto()
+
+    def ret_mon():
+        return random.choice(list(monster_g))
+
+class monster_kobold:
+    def monster_k(Enum):
+        KOBOLD = auto()
+        RAZORTOOTH = auto()
+        KHUNTER = auto()
+        KGLASSMITH = auto()
+
+    def ret_mon():
+        return random.choice(list(monster_k))
+
+class monster_orc:
+    def monster_o(Enum):
+        ORC = auto()
+        TROLL = auto()
+
+    def ret_mon():
+        return random.choice(list(monster_0))
+
 class gen_monsters:
     def __init__():
         print()
 
-    def monster_all(Enum):
-        KOBOLD = auto()
-        RAZORTOOTH = auto()
-        KHUNTER = auto()
-        KGLASSMITH = auto()
-        GOBLIN = auto()
-        C_GOBLIN = auto()
-        CB_GOBLIN = auto()
-        CO_GOBLIN = auto()
-        CS_GOBLIN = auto()
-        ORC = auto()
-        TROLL = auto()
-
-    def ret_mon(ret):
-        mon = random.choice(list(ret))
-        return mon
-
-    def monster_goblin(Enum):
-        GOBLIN = auto()
-        C_GOBLIN = auto()
-        CB_GOBLIN = auto()
-        CO_GOBLIN = auto()
-        CS_GOBLIN = auto()
-
-    def monster_kobold(Enum):
-        KOBOLD = auto()
-        RAZORTOOTH = auto()
-        KHUNTER = auto()
-        KGLASSMITH = auto()
-    
-
-    def monster_orc(Enum):
-        ORC = auto()
-        TROLL = auto()
-
-
     def monster_stats(self, x, y, sect=monster_all):
-        selector = ret_mon(sect)
+        selector = sect.ret_mon()
 
         if selector == monster_all.KOBOLD:
             monster = Entity(x, y, 'k', libtcod.desaturated_green, 'Kobold', blocks=True, render_order=RenderOrder.ACTOR, fighter=Fighter(hp=10, defense=0, power=1, xp=35), ai=BasicMonster(), inventory=Inventory(5))
