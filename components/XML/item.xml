@@ -1,0 +1,17 @@
+
+<?xml version="1.0""1.0" encoding="utf-8""UTF-8"?>
+<entity>
+  <item>
+    <symbol>!</symbol>
+    <color>violet</color>
+    <name>Lesser Healing Potion</name>
+    <rorder>ITEM</rorder>
+    <itemt>item_component</itemt>
+    <dl>NO</dl>
+    <chance>10</chance>
+    <use>use_function=heal, amount=20</use>
+    <list name="ALL"/>
+    <list name="ALL_POTIONS"/>
+    <list name="ALL_MONSTERS"/>
+  </item>
+</entity>
